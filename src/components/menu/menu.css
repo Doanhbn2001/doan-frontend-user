@@ -1,0 +1,49 @@
+.box-content {
+  display: inline-block;
+  margin-right: 2%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.hero {
+  min-height: 450px;
+}
+.bg-cover {
+  background-size: cover !important;
+}
+.container {
+  width: 70%;
+}
+.bold {
+  font-size: 20px;
+  font-weight: 900;
+}
+.box-type {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.box-type:hover {
+  text-decoration: none;
+}
+.box-type:hover .box-content {
+  border: 5px #9ac741 solid;
+  transform: scale(1.1, 1.1);
+}
+.box-search {
+  padding: 0px;
+}
+.navigation {
+  margin-bottom: 100px;
+  padding-bottom: 50px;
+}
+.icon {
+  max-width: 20%;
+  float: right;
+}
+
+hr {
+  height: 2px;
+  background: green;
+}

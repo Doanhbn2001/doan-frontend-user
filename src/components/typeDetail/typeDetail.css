@@ -1,0 +1,29 @@
+.box-plant {
+  height: 400px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+.img-plant {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+.title-plant {
+  margin-top: 10px;
+  font-size: x-large;
+}
+.box-plant:hover img {
+  /* background: rgba(226, 0, 0, 0.7); */
+  opacity: 0.6;
+}
+.box-plant {
+  text-decoration: none;
+  color: black;
+  padding-left: 0px;
+}
+
+.box-plant:hover {
+  text-decoration: none;
+  color: orange;
+  transform: scale(1.1, 1.1);
+}
