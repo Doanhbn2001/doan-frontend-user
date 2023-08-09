@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './plants.css';
 import { FadeTransform } from 'react-animation-components';
+import API from '../../API/api';
 
 const Plants = () => {
   const [plants, setPlants] = useState([]);
@@ -15,17 +16,18 @@ const Plants = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/plants//get-all-plants?search=${search}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setPlants(res.data);
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      const response = await API.getPlants(search);
+      if (response.data.error) {
         setError(true);
-      });
+      } else {
+        setPlants(response.data.data);
+      }
+    };
+    fetchData();
   }, [search]);
+  if (error) return <div>ERROR SERVER</div>;
+
   return (
     <div className="container">
       <FadeTransform
@@ -60,7 +62,11 @@ const Plants = () => {
                       key={p._id}
                       className="box-plant"
                     >
-                      <img src={p.img1} className="img-plant" />
+                      <img
+                        src={p.img1}
+                        className="img-plant"
+                        alt="ảnh minh họa"
+                      />
                       <p className="bold title-plant">{p.name}</p>
                     </Link>
                   </div>

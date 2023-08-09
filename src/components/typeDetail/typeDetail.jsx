@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './typeDetail.css';
 import { FadeTransform } from 'react-animation-components';
+import API from '../../API/api';
 
 const TypeDetail = () => {
   const [type, setType] = useState([]);
@@ -10,21 +11,15 @@ const TypeDetail = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/plants//get-type`, {
-      method: 'POST',
-      body: JSON.stringify({ id: idType }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setType(res.data);
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      const response = await API.getType(idType);
+      if (response.data.error) {
         setError(true);
-      });
+      } else {
+        setType(response.data.data);
+      }
+    };
+    fetchData();
   }, []);
 
   if (error) return <div>ERROR SERVER</div>;

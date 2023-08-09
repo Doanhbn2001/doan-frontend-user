@@ -1,21 +1,24 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import './home.css';
-import Menu from '../../components/menu/menu';
-import DetailPlant from '../../components/plantDetail/plantDetail';
-import TypeDetail from '../../components/typeDetail/typeDetail';
-import Plants from '../../components/plants/plants';
 import Map from '../../components/map/map';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import List from '../../components/list/list';
+import Note from '../../components/note/note';
 
-const Home = () => {
+const Home = ({ idUser, resetNote, setResetNote }) => {
   return (
     <div>
-      <Routes>
-        <Route exact path="/" element={<Menu />} />
-        <Route path="/plants" element={<Plants />} />
-        <Route path="/plants/:idPlant" element={<DetailPlant />} />
-        <Route path="/types/:idType" element={<TypeDetail />} />
-        <Route path="/map" element={<Map />} />
-      </Routes>
+      <Header></Header>
+      <Note
+        idUser={idUser}
+        resetNote={resetNote}
+        setResetNote={setResetNote}
+      ></Note>
+      <List></List>
+      <Outlet></Outlet>
+      <Map></Map>
+      <Footer></Footer>
     </div>
   );
 };

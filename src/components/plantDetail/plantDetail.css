@@ -25,3 +25,14 @@
 .text-plant h2 {
   display: inline-block;
 }
+.form-note {
+  position: relative;
+}
+.button-note {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.text-note {
+  float: left;
+}

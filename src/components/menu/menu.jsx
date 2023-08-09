@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardImg } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './menu.css';
-import Image from '../../share/image/images';
+import API from '../../API/api';
 import { FadeTransform } from 'react-animation-components';
 
 const Menu = () => {
@@ -27,19 +27,16 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    fetch(
-      `http://localhost:5000/plants//get-all-types?page=${page}&search=${search}`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setTypes(res.data);
-        setTotalPage(Math.ceil(res.length / 12));
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      const response = await API.getTypes(search, page);
+      if (response.data.error) {
         setError(true);
-      });
+      } else {
+        setTypes(response.data.data);
+        setTotalPage(Math.ceil(response.data.length / 12));
+      }
+    };
+    fetchData();
   }, [page, search]);
 
   if (error) return <div>ERROR SERVER</div>;
@@ -77,10 +74,14 @@ const Menu = () => {
                     >
                       <Card className="box-content">
                         <CardBody>
-                          <CardImg
-                            src={`${Image.typeIcon}`}
-                            className="icon"
-                          ></CardImg>
+                          {!p.plants[0] ? (
+                            <div></div>
+                          ) : (
+                            <CardImg
+                              src={`${p.plants[0].img1}`}
+                              className="icon"
+                            ></CardImg>
+                          )}
                           <CardTitle className="bold">{p.name}</CardTitle>
                           <CardTitle>{p.plants.length} loài thực vật</CardTitle>
                         </CardBody>
